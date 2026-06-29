@@ -16,11 +16,15 @@ def classify_ticket(issue_description: str) -> dict:
         category = "Network"
         team = "Infrastructure Team"
 
-    elif any(word in issue for word in ["password", "login", "authentication", "account"]):
+    elif any(
+        word in issue for word in ["password", "login", "authentication", "account"]
+    ):
         category = "Access Management"
         team = "Identity & Access Team"
 
-    elif any(word in issue for word in ["laptop", "screen", "keyboard", "mouse", "hardware"]):
+    elif any(
+        word in issue for word in ["laptop", "screen", "keyboard", "mouse", "hardware"]
+    ):
         category = "Hardware"
         team = "Desktop Support"
 
@@ -32,10 +36,7 @@ def classify_ticket(issue_description: str) -> dict:
         category = "General Software"
         team = "Application Support"
 
-    return {
-        "category": category,
-        "assigned_team": team
-    }
+    return {"category": category, "assigned_team": team}
 
 
 @mcp.tool
@@ -62,10 +63,7 @@ def estimate_priority(issue_description: str) -> dict:
         priority = "Low"
         sla = "2 Business Days"
 
-    return {
-        "priority": priority,
-        "expected_sla": sla
-    }
+    return {"priority": priority, "expected_sla": sla}
 
 
 @mcp.tool
@@ -82,7 +80,7 @@ def generate_troubleshooting_steps(issue_type: str) -> list[str]:
             "Restart the VPN client.",
             "Verify your credentials.",
             "Reconnect to the VPN.",
-            "Contact Infrastructure Team if the issue persists."
+            "Contact Infrastructure Team if the issue persists.",
         ]
 
     elif issue == "password":
@@ -90,7 +88,7 @@ def generate_troubleshooting_steps(issue_type: str) -> list[str]:
             "Verify the username.",
             "Check if Caps Lock is enabled.",
             "Reset the password if needed.",
-            "Try logging in again."
+            "Try logging in again.",
         ]
 
     elif issue == "email":
@@ -98,7 +96,7 @@ def generate_troubleshooting_steps(issue_type: str) -> list[str]:
             "Check internet connectivity.",
             "Restart Outlook.",
             "Verify mailbox quota.",
-            "Check server connection."
+            "Check server connection.",
         ]
 
     else:
@@ -106,7 +104,7 @@ def generate_troubleshooting_steps(issue_type: str) -> list[str]:
             "Restart the application.",
             "Reboot the computer.",
             "Capture the error message.",
-            "Contact IT Support if unresolved."
+            "Contact IT Support if unresolved.",
         ]
 
 
@@ -122,10 +120,11 @@ def estimate_resolution_time(priority: str) -> str:
         "critical": "Within 2 Hours",
         "high": "Within 8 Hours",
         "medium": "Within 1 Business Day",
-        "low": "Within 3 Business Days"
+        "low": "Within 3 Business Days",
     }
 
     return mapping.get(priority, "To Be Determined")
+
 
 if __name__ == "__main__":
     mcp.run(transport="http", host="0.0.0.0", port=8080)
