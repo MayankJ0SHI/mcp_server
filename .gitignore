@@ -1,4 +1,1 @@
 *.pyc
-*.toml
-*.lock
-.python-version
